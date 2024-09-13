@@ -1,6 +1,30 @@
+
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Courts Page</h1>
-<p>Welcome to the courts section.</p>
+<h1>Courts</h1>
+<p>The availble courts for today are:</p>
+
+<ul>
+    {% for x in mycourts %}
+    <li>
+        <!-- Display court number and occupation status -->
+        <a href="single_court/{{ x.id }}">{{ x.Number }} - Occupied: {{ x.Is_occupied }} - {{ x.date_time_occupation }}</a>
+        
+        <!-- Conditional button display based on Is_occupied -->
+        {% if not x.Is_occupied %}
+        <!-- Button to occupy the court if it is not occupied -->
+        <a href="{% url 'occupy_court' x.id %}" class="btn btn-success">Occupy</a>
+        {% else %}
+        <!-- Button to free the court if it is occupied -->
+        <a href="{% url 'free_court' x.id %}" class="btn btn-danger">Free</a>
+        {% endif %}
+    </li>
+    {% empty %}
+    <li>No courts available.</li>
+    {% endfor %}
+</ul>
+
+
 {% endblock %}
+

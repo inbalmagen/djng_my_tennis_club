@@ -1,0 +1,14 @@
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Court number: {{ mycourts.Number }} </h1>
+  
+<p>Is occupied: {{ mycourts.Is_occupied }}</p>
+<p>Date and time of occupation: {{ mycourts.date_time_occupation }}</p>
+
+<p>Back to <a href="/courts">Courts</a></p>
+
+{% endblock %}
