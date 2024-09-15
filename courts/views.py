@@ -9,9 +9,15 @@ def courts(request):
     mycourts = Court.objects.all().values()  # Fetch data from the Court model
     template = loader.get_template('courts_page.html')
     context = {
-        'mycourts': mycourts,
+        'courts': mycourts,
     }
     return HttpResponse(template.render(context, request))
+
+def reserve(request, id):
+  court = Court.objects.get(id=id)
+  court.is_occupied = not court.is_occupied
+  court.save()
+  return redirect('/courts/')
 
 def single_court(request, id):
   mycourts = Court.objects.get(id=id)
