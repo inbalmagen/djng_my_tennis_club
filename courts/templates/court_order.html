@@ -1,38 +1,46 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Assign Court Order</h1>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Assign Court Order</h1>
+    
+    <form method="POST" class="p-4 shadow rounded bg-light">
+        {% csrf_token %}
 
-<form method="post">
-    {% csrf_token %}
+        <!-- Member Selection -->
+        <div class="form-group mb-3">
+            <label for="member1" class="form-label">Select Member 1</label>
+            <select id="member1" name="member1" class="form-select">
+                <option value="" disabled selected>-- Choose a Member --</option>
+                {% for member in members %}
+                    <option value="{{ member.id }}">{{ member.firstname }} {{ member.lastname }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
-    <!-- Dropdown for selecting members -->
-    <label for="member1">Select First Member:</label>
-    <select name="member1" id="member1" class="form-control">
-        <option value="" disabled selected>Choose First Member</option>  <!-- Blank option -->
-        {% for member in members %}
-            <option value="{{ member.id }}">{{ member.firstname }} {{ member.lastname }}</option>
-        {% endfor %}
-    </select>
+        <div class="form-group mb-3">
+            <label for="member2" class="form-label">Select Member 2</label>
+            <select id="member2" name="member2" class="form-select">
+                <option value="" disabled selected>-- Choose a Member --</option>
+                {% for member in members %}
+                    <option value="{{ member.id }}">{{ member.firstname }} {{ member.lastname }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
-    <label for="member2">Select Second Member:</label>
-    <select name="member2" id="member2" class="form-control">
-        <option value="" disabled selected>Choose Second Member</option>  <!-- Blank option -->
-        {% for member in members %}
-            <option value="{{ member.id }}">{{ member.firstname }} {{ member.lastname }}</option>
-        {% endfor %}
-    </select>
+        <!-- Court Selection -->
+        <div class="form-group mb-4">
+            <label for="court" class="form-label">Select Court</label>
+            <select id="court" name="court" class="form-select">
+                <option value="" disabled selected>-- Choose a Court --</option>
+                {% for court in courts %}
+                    <option value="{{ court.id }}">Court {{ court.number }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
-    <!-- Dropdown for selecting courts -->
-    <label for="court">Select Court:</label>
-    <select name="court" id="court" class="form-control">
-        <option value="" disabled selected>Choose a Court</option>  <!-- Blank option -->
-        {% for court in courts %}
-            <option value="{{ court.id }}">Court {{ court.number }}</option>
-        {% endfor %}
-    </select>
-
-    <br>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary w-100">Assign Court</button>
+    </form>
+</div>
 {% endblock %}
