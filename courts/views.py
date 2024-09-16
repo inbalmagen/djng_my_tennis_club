@@ -39,8 +39,16 @@ def reserve_court(request):
 
 # View the court orders (occupied courts and members)
 def court_order_list(request):
-    court_orders = CourtOrder.objects.all()
-    return render(request, 'court_order.html', {'court_orders': court_orders})
+    # Fetch all available courts and members
+    courts = Court.objects.filter(is_occupied=False)  # Only show available courts
+    members = Member.objects.all()
+
+    context = {
+        'courts': courts,
+        'members': members,
+    }
+    
+    return render(request, 'court_order.html', context)
 
 
 # Manually reserve/unreserve courts (similar to your original view)
