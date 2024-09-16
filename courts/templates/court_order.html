@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Current Court Reservations</h1>
+
+{% if court_orders %}
+    <ul>
+        {% for order in court_orders %}
+            <li>
+                Court {{ order.court.number }} is occupied by {{ order.member1.firstname }} {{ order.member1.lastname }} 
+                and {{ order.member2.firstname }} {{ order.member2.lastname }}. 
+                <a href="{% url 'free_court' order.court.id %}">Free Court</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No courts are currently reserved.</p>
+{% endif %}
+
+<a href="{% url 'reserve_court' %}" class="btn btn-success">Reserve a Court</a>
+{% endblock %}

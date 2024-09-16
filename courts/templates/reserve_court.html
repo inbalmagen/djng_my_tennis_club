@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Reserve a Court</h1>
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="court" class="form-label">Select Court</label>
+        <select class="form-select" name="court" required>
+            <option value="">Choose...</option>
+            {% for court in courts %}
+                {% if not court.is_occupied %} <!-- Show only available courts -->
+                    <option value="{{ court.id }}">Court {{ court.number }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="member1" class="form-label">Select Member 1</label>
+        <select class="form-select" name="member1" required>
+            <option value="">Choose...</option>
+            {% for member in members %}
+                <option value="{{ member.id }}">{{ member.firstname }} {{ member.lastname }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="member2" class="form-label">Select Member 2</label>
+        <select class="form-select" name="member2" required>
+            <option value="">Choose...</option>
+            {% for member in members %}
+                <option value="{{ member.id }}">{{ member.firstname }} {{ member.lastname }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Reserve Court</button>
+</form>
+{% endblock %}

@@ -34,6 +34,9 @@
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == '/courts/' %}active{% endif %}" href="{% url 'courts' %}">Courts</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/court_orders/' %}active{% endif %}" href="{% url 'court_order_list' %}">Court Reservations</a>
+                    </li>
                 </ul>
             </div>
         </div>
